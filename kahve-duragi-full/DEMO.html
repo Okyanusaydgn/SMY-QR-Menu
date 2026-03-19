@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kahve Duragi — Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--cream:#fdf9f4;--cream2:#f7f0e6;--ink:#18100a;--ink2:#4d3a22;--ink3:#9a7a58;--amber:#c47c1a;--amber-dk:#8f5a0c;--amber-lt:#e8973a;--white:#fff;--border:#ddd0bc;--gold:#d4a843;}
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}button{font-family:'Outfit',sans-serif;cursor:pointer;border:none;background:none;}img{display:block;object-fit:cover;}
+.page{display:none;}.page.active{display:block;}
+.ann{background:linear-gradient(90deg,#b45309,#d97706,#b45309);background-size:200%;animation:shimmer 4s linear infinite;color:#fff;font-size:13px;padding:10px 44px;text-align:center;position:relative;font-weight:500;}
+.ann a{border-bottom:1px solid rgba(255,255,255,.5);margin-left:5px;font-weight:700;}
+.ann-x{position:absolute;right:14px;top:50%;transform:translateY(-50%);opacity:.7;font-size:20px;cursor:pointer;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:all .2s;}
+.ann-x:hover{opacity:1;background:rgba(255,255,255,.15);}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.nav{position:sticky;top:0;z-index:100;background:rgba(250,248,244,.96);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);transition:box-shadow .3s;}
+.nav.scrolled{box-shadow:0 2px 20px rgba(26,18,8,.07);}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;height:66px;}
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer;}
+.logo-badge{width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(200,122,32,.32);flex-shrink:0;background:linear-gradient(145deg,#c87a20 0%,#8b4a10 100%);}
+.logo-wordmark{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--ink);letter-spacing:-.3px;}
+.nav-links{display:flex;gap:28px;}.nav-links a{font-size:14px;font-weight:500;color:var(--ink2);transition:color .2s;cursor:pointer;}.nav-links a:hover{color:var(--amber);}
+.nav-cta{background:var(--ink);color:#fff;font-size:14px;font-weight:700;padding:10px 24px;border-radius:100px;transition:all .2s;cursor:pointer;}
+.nav-cta:hover{background:#3d2010;box-shadow:0 4px 16px rgba(26,18,8,.2);}
+.hero{background:var(--cream);min-height:88vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:72px 22px 60px;}
+.hero::before{content:'';position:absolute;top:-15%;left:-10%;width:65%;height:65%;border-radius:50%;background:radial-gradient(circle,rgba(251,191,36,.2) 0%,rgba(249,115,22,.07) 50%,transparent 80%);pointer-events:none;animation:aur1 9s ease-in-out infinite;}
+.hero::after{content:'';position:absolute;bottom:-20%;right:-10%;width:50%;height:50%;border-radius:50%;background:radial-gradient(circle,rgba(180,83,9,.16) 0%,transparent 70%);pointer-events:none;animation:aur2 11s ease-in-out infinite;}
+@keyframes aur1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(4%,7%) scale(1.07)}}
+@keyframes aur2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-6%,-5%) scale(1.06)}}
+.hero-inner{max-width:1100px;margin:0 auto;width:100%;display:flex;gap:56px;align-items:center;position:relative;z-index:1;}
+.hero-left{flex:1;display:flex;flex-direction:column;gap:22px;}
+.status-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);border:1px solid rgba(200,122,32,.2);border-radius:100px;padding:7px 16px;font-size:13px;font-weight:600;color:var(--ink2);width:fit-content;box-shadow:0 2px 12px rgba(26,18,8,.05);}
+.sdot{width:7px;height:7px;border-radius:50%;background:#22c55e;animation:breathe 2.5s ease-in-out infinite;}
+@keyframes breathe{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.8)}}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.3rem,5.2vw,4rem);line-height:1.08;letter-spacing:-1.5px;color:var(--ink);}
+.hero h1 em{font-style:italic;color:var(--amber);}
+.rword{display:inline-block;transition:opacity .3s,transform .3s;color:var(--amber);font-style:italic;}.rword.out{opacity:0;transform:translateY(8px);}
+.hero-desc{font-size:15.5px;color:var(--ink2);line-height:1.75;max-width:420px;}
+.hero-acts{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-amber{display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:#fff;font-size:15px;font-weight:700;padding:13px 28px;border-radius:100px;transition:all .2s;box-shadow:0 6px 20px rgba(200,122,32,.3);cursor:pointer;border:none;}
+.btn-amber:hover{background:var(--amber-dk);transform:translateY(-2px);box-shadow:0 10px 28px rgba(200,122,32,.4);}
+.btn-ghost2{display:inline-flex;align-items:center;background:rgba(255,255,255,.8);backdrop-filter:blur(6px);border:1.5px solid var(--border);color:var(--ink);font-size:15px;font-weight:500;padding:12px 22px;border-radius:100px;transition:all .2s;cursor:pointer;}
+.btn-ghost2:hover{border-color:var(--amber);color:var(--amber);background:#fff;}
+.hero-social{display:flex;align-items:center;gap:14px;}.avs{display:flex;}
+.av{width:33px;height:33px;border-radius:50%;border:2.5px solid var(--cream);overflow:hidden;margin-left:-10px;}.av:first-child{margin-left:0;}.av img{width:100%;height:100%;}
+.soc-txt p{font-size:13px;font-weight:700;color:var(--ink);}.soc-txt small{font-size:12px;color:var(--ink3);}.strs{color:#f59e0b;}
+.hero-right{flex-shrink:0;position:relative;display:flex;justify-content:center;}
+.phone{width:262px;background:#1a1208;border-radius:42px;padding:12px;box-shadow:0 40px 80px rgba(26,18,8,.3);position:relative;}
+.phone::before{content:'';position:absolute;inset:-24px;border-radius:62px;background:radial-gradient(circle,rgba(251,191,36,.13) 0%,transparent 65%);pointer-events:none;}
+.phone-screen{background:var(--cream);border-radius:32px;overflow:hidden;min-height:490px;}
+.phone-top{background:var(--amber);padding:15px 14px 13px;}.phone-top small{font-size:10px;color:rgba(255,255,255,.7);font-weight:600;letter-spacing:.8px;text-transform:uppercase;}.phone-top h3{font-family:'Playfair Display',serif;color:#fff;font-size:17px;font-weight:700;margin-top:2px;}
+.phone-hero-img{height:90px;overflow:hidden;}.phone-hero-img img{width:100%;height:100%;}
+.phone-cats{padding:11px 12px 9px;}.phone-cats small{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);}
+.pcatrow{display:flex;gap:6px;margin-top:7px;}.pcat{padding:5px 12px;border-radius:100px;font-size:11px;font-weight:600;border:1px solid var(--border);color:var(--ink2);}.pcat.a{background:var(--amber);border-color:var(--amber);color:#fff;}
+.pdiv{height:1px;background:var(--border);margin:0 12px;}
+.pitem{display:flex;align-items:center;gap:9px;padding:9px 12px;}.pthumb{width:42px;height:42px;border-radius:10px;overflow:hidden;flex-shrink:0;}.pthumb img{width:100%;height:100%;}.pname{font-size:12px;font-weight:700;color:var(--ink);}.psub{font-size:10px;color:var(--ink3);}.pprice{margin-left:auto;font-size:13px;font-weight:800;color:var(--amber);flex-shrink:0;}
+.fbadge2{position:absolute;background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:0 8px 28px rgba(26,18,8,.11);}
+.fqr{top:44px;right:-44px;padding:11px;display:flex;flex-direction:column;align-items:center;gap:5px;}.qrv{width:56px;height:56px;border-radius:9px;background:repeating-conic-gradient(#1a1208 0% 25%,#fff 0% 50%) 0 0/8px 8px;}.fqr p{font-size:10px;color:var(--ink3);font-weight:600;}
+.frat{left:-48px;bottom:96px;padding:11px 15px;}.frat .rnum{font-size:21px;font-weight:800;color:var(--amber);}.frat .rst{color:#f59e0b;font-size:11px;}.frat small{display:block;font-size:10px;color:var(--ink3);margin-top:1px;}
+.si{max-width:1100px;margin:0 auto;}.eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;letter-spacing:-1px;color:var(--ink);line-height:1.15;margin-bottom:10px;}
+.sec-sub{font-size:15px;color:var(--ink2);max-width:400px;line-height:1.7;margin-bottom:42px;}.sec-hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:30px;}
+.see-all{font-size:13px;font-weight:700;color:var(--amber);cursor:pointer;transition:color .2s;}.see-all:hover{color:var(--amber-dk);}
+.cats-sec{background:var(--cream2);padding:70px 22px;}
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.cat-card{border-radius:20px;overflow:hidden;cursor:pointer;transition:all .3s;border:1.5px solid transparent;}
+.cat-card:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(26,18,8,.1);}
+.cat-vis{height:150px;position:relative;overflow:hidden;}.cat-vis img{width:100%;height:100%;transition:transform .4s;}.cat-card:hover .cat-vis img{transform:scale(1.06);}
+.cat-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.08),rgba(0,0,0,.42));}
+.cat-cnt{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.18);backdrop-filter:blur(6px);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;border:1px solid rgba(255,255,255,.25);}
+.cat-body{background:#fff;padding:14px 16px;}.cat-name{font-size:14px;font-weight:700;color:var(--ink);}.cat-sub2{font-size:11px;color:var(--ink3);margin-top:2px;}
+.feat-sec{background:#fff;padding:70px 22px;}
+.feat-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:16px;}
+.fcard{border-radius:20px;overflow:hidden;border:1px solid var(--border);background:#fff;transition:all .3s;cursor:pointer;}
+.fcard:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(26,18,8,.09);}
+.fimg{position:relative;overflow:hidden;}.fimg-lg{height:230px;}.fimg-sm{height:160px;}
+.fimg img{width:100%;height:100%;transition:transform .4s;}.fcard:hover .fimg img{transform:scale(1.04);}
+.foverlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 35%,rgba(0,0,0,.28));}
+.fbadge{position:absolute;top:12px;left:12px;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:700;backdrop-filter:blur(6px);}
+.bp{background:rgba(254,243,199,.92);color:#92400e;border:1px solid #fde68a;}.bs{background:rgba(252,231,243,.92);color:#831843;border:1px solid #fbcfe8;}.bn{background:rgba(220,252,231,.92);color:#14532d;border:1px solid #bbf7d0;}
+.fadd{position:absolute;bottom:12px;right:12px;width:36px;height:36px;border-radius:50%;background:var(--amber);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;opacity:0;transform:translateY(4px);transition:all .2s;box-shadow:0 4px 14px rgba(200,122,32,.4);}
+.fcard:hover .fadd{opacity:1;transform:translateY(0);}
+.fbody{padding:16px 18px 18px;}.frat2{display:flex;align-items:center;gap:5px;margin-bottom:7px;}.frat2 .st{color:#f59e0b;font-size:12px;}.frat2 span{font-size:12px;color:var(--ink3);}
+.fname{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:4px;}.fdesc{font-size:13px;color:var(--ink3);line-height:1.6;margin-bottom:12px;}
+.ffoot{display:flex;align-items:center;justify-content:space-between;}.fprice{font-size:18px;font-weight:800;color:var(--amber);}.forder{font-size:12px;font-weight:700;color:var(--ink3);}
+/* ─── MODERNIZED MENU SECTION ─── */
+.menu-sec{background:linear-gradient(180deg,var(--cream) 0%,var(--cream2) 100%);padding:80px 22px;}
+.menu-hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px;flex-wrap:wrap;gap:16px;}
+.menu-main-title{font-size:clamp(2.2rem,4vw,3.2rem);margin-bottom:6px;}
+.menu-desc-txt{font-size:14px;color:var(--ink3);margin-top:4px;}
+.menu-hdr-right{display:flex;align-items:flex-end;}
+.kdv-pill{display:inline-flex;align-items:center;background:rgba(196,124,26,.08);border:1px solid rgba(196,124,26,.15);border-radius:100px;padding:5px 14px;font-size:12px;font-weight:600;color:var(--amber);letter-spacing:.3px;}
+
+/* Filter tabs — modern chip style */
+.ftabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:32px;scrollbar-width:none;}
+.ftabs::-webkit-scrollbar{display:none;}
+.ftab{display:flex;align-items:center;gap:6px;padding:9px 20px;border-radius:100px;font-size:13px;font-weight:600;white-space:nowrap;cursor:pointer;transition:all .22s;border:1.5px solid var(--border);background:#fff;color:var(--ink2);letter-spacing:.1px;}
+.ftab:hover{border-color:var(--amber);color:var(--amber);background:rgba(196,124,26,.04);transform:translateY(-1px);}
+.ftab.active{background:var(--amber);border-color:var(--amber);color:#fff;box-shadow:0 4px 16px rgba(196,124,26,.28);}
+.ftab-dot{width:6px;height:6px;border-radius:50%;background:#fff;flex-shrink:0;}
+
+/* Product rows */
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.mrow{
+  display:flex;align-items:center;gap:16px;
+  background:#fff;border-radius:18px;padding:14px 16px;
+  border:1px solid var(--border);cursor:pointer;
+  transition:all .25s;position:relative;overflow:hidden;
+}
+.mrow::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(196,124,26,.03) 0%,transparent 60%);
+  opacity:0;transition:opacity .25s;
+}
+.mrow:hover{border-color:rgba(196,124,26,.25);box-shadow:0 8px 28px rgba(196,124,26,.1);transform:translateY(-2px);}
+.mrow:hover::before{opacity:1;}
+
+/* Thumbnail */
+.mthumb{width:58px;height:58px;border-radius:14px;overflow:hidden;flex-shrink:0;box-shadow:0 2px 10px rgba(24,16,10,.1);}
+.mthumb img{width:100%;height:100%;object-fit:cover;transition:transform .35s;}
+.mrow:hover .mthumb img{transform:scale(1.08);}
+
+/* Row body */
+.mrow-body{flex:1;min-width:0;}
+.mname{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.mdesc{font-size:11px;color:var(--ink3);line-height:1.5;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mtags{display:flex;gap:5px;flex-wrap:wrap;}
+.mtag{font-size:10px;font-weight:600;color:var(--ink2);background:var(--cream2);border-radius:100px;padding:2px 8px;border:1px solid var(--border);}
+
+/* Price + add */
+.mrow-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;}
+.mprice{font-size:15px;font-weight:800;color:var(--amber);}
+.madd-btn{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--amber);color:#fff;border:none;cursor:pointer;
+  font-size:16px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;opacity:0;transform:scale(0.7);
+  box-shadow:0 2px 8px rgba(196,124,26,.3);
+}
+.mrow:hover .madd-btn{opacity:1;transform:scale(1);}
+.madd-btn:hover{background:var(--amber-dk);transform:scale(1.1)!important;}
+
+/* See more */
+.menu-see-more{text-align:center;margin-top:32px;}
+.menu-see-btn{
+  background:transparent;border:1.5px solid var(--border);
+  border-radius:100px;padding:11px 28px;font-size:14px;font-weight:600;
+  color:var(--ink2);cursor:pointer;transition:all .2s;
+  font-family:'Outfit',sans-serif;
+}
+.menu-see-btn:hover{border-color:var(--amber);color:var(--amber);background:rgba(196,124,26,.04);}
+.ftabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:26px;scrollbar-width:none;}.ftabs::-webkit-scrollbar{display:none;}
+.ftab{display:flex;align-items:center;gap:6px;padding:8px 18px;border-radius:100px;font-size:13px;font-weight:700;white-space:nowrap;cursor:pointer;transition:all .2s;border:1.5px solid var(--border);background:#fff;color:var(--ink2);}
+.ftab:hover{border-color:rgba(200,122,32,.4);color:var(--amber);}.ftab.active{background:var(--amber);border-color:var(--amber);color:#fff;box-shadow:0 4px 14px rgba(200,122,32,.25);}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.mrow{display:flex;align-items:center;gap:14px;background:#fff;border-radius:16px;padding:13px 15px;border:1px solid var(--border);cursor:pointer;transition:all .2s;}
+.mrow:hover{border-color:rgba(200,122,32,.3);box-shadow:0 6px 20px rgba(200,122,32,.07);transform:translateX(3px);}
+.mthumb{width:52px;height:52px;border-radius:12px;overflow:hidden;flex-shrink:0;}.mthumb img{width:100%;height:100%;}
+.mname{font-size:14px;font-weight:700;color:var(--ink);}.mdesc{font-size:11px;color:var(--ink3);margin-top:2px;}.mprice{margin-left:auto;font-size:15px;font-weight:800;color:var(--amber);flex-shrink:0;}
+/* ─── PREMIUM CTA ─── */
+.qrcta{position:relative;padding:100px 22px 110px;text-align:center;overflow:hidden;background:#0d0905;}
+.qrcta-noise{position:absolute;inset:0;pointer-events:none;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px;}
+.qrcta-orb1{position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:700px;height:500px;border-radius:50%;background:radial-gradient(ellipse,rgba(200,122,32,.28) 0%,rgba(160,80,10,.12) 40%,transparent 70%);pointer-events:none;filter:blur(40px);animation:orb-pulse 6s ease-in-out infinite;}
+.qrcta-orb2{position:absolute;bottom:-100px;left:20%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(120,50,5,.2) 0%,transparent 65%);pointer-events:none;filter:blur(60px);animation:orb-pulse 8s ease-in-out infinite reverse;}
+.qrcta-orb3{position:absolute;top:30%;right:10%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(245,180,50,.1) 0%,transparent 65%);pointer-events:none;filter:blur(50px);}
+@keyframes orb-pulse{0%,100%{transform:translateX(-50%) scale(1);opacity:1}50%{transform:translateX(-50%) scale(1.08);opacity:.75}}
+.qrcta-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;border-radius:50%;border:1px solid rgba(200,122,32,.08);pointer-events:none;}
+.qrcta-ring2{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;border-radius:50%;border:1px solid rgba(200,122,32,.04);pointer-events:none;}
+.qrcta-in{max-width:640px;margin:0 auto;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:20px;}
+.qrcta-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(200,122,32,.12);border:1px solid rgba(200,122,32,.25);border-radius:100px;padding:6px 16px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#e89a3c;}
+.qrcta-badge-dot{width:6px;height:6px;border-radius:50%;background:#e89a3c;animation:breathe 2.5s ease-in-out infinite;}
+.qrcta h2{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,4rem);font-weight:700;color:#fff;letter-spacing:-1.5px;line-height:1.1;margin:0;}
+.qrcta h2 .grad{background:linear-gradient(135deg,#f5c065 0%,#e07820 50%,#f5a030 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:italic;}
+.qrcta-sub{font-size:16px;color:rgba(255,255,255,.45);line-height:1.7;max-width:420px;}
+.qrcta-qr-wrap{position:relative;margin:8px 0;}
+.qrcta-qr-glow{position:absolute;inset:-20px;border-radius:36px;background:radial-gradient(circle,rgba(200,122,32,.35) 0%,transparent 65%);filter:blur(16px);animation:qr-glow-pulse 3s ease-in-out infinite;pointer-events:none;}
+@keyframes qr-glow-pulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+.qrcta-qr{width:160px;height:160px;background:#fff;border-radius:24px;padding:14px;box-shadow:0 0 0 1px rgba(255,255,255,.1),0 20px 60px rgba(0,0,0,.5),0 4px 20px rgba(200,122,32,.25);transition:transform .3s,box-shadow .3s;cursor:pointer;}
+.qrcta-qr:hover{transform:scale(1.04) translateY(-3px);box-shadow:0 0 0 1px rgba(200,122,32,.3),0 28px 70px rgba(0,0,0,.6),0 8px 30px rgba(200,122,32,.4);}
+.qrcta-qr-inner{width:100%;height:100%;border-radius:10px;background:repeating-conic-gradient(#1a1208 0% 25%,#fff 0% 50%) 0 0/11px 11px;position:relative;}
+.qrcta-qr-corner{position:absolute;width:28px;height:28px;border-radius:4px;background:rgba(200,122,32,.15);}
+.qrcta-qr-corner.tl{top:4px;left:4px;border-top:3px solid var(--amber);border-left:3px solid var(--amber);}
+.qrcta-qr-corner.tr{top:4px;right:4px;border-top:3px solid var(--amber);border-right:3px solid var(--amber);}
+.qrcta-qr-corner.bl{bottom:4px;left:4px;border-bottom:3px solid var(--amber);border-left:3px solid var(--amber);}
+.qrcta-scan-hint{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.35);margin-top:-4px;}
+.qrcta-scan-dot{width:5px;height:5px;border-radius:50%;background:#22c55e;animation:breathe 2s infinite;}
+.qrurl{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:100px;padding:9px 22px;font-size:13px;color:rgba(255,255,255,.4);font-family:monospace;transition:all .2s;}
+.qrurl:hover{background:rgba(255,255,255,.08);border-color:rgba(200,122,32,.25);color:rgba(255,255,255,.6);}
+.qrurl span{color:#e89a3c;font-weight:700;}
+.btn-amber-lg{position:relative;display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#d4830a 0%,#c87a20 40%,#b86510 100%);color:#fff;font-size:16px;font-weight:700;padding:16px 40px;border-radius:100px;transition:all .25s;cursor:pointer;border:none;letter-spacing:.2px;overflow:hidden;}
+.btn-amber-lg::before{content:'';position:absolute;inset:1px;border-radius:100px;background:linear-gradient(135deg,rgba(255,255,255,.12) 0%,transparent 50%);pointer-events:none;}
+.btn-amber-lg::after{content:'';position:absolute;inset:0;border-radius:100px;box-shadow:0 0 0 0 rgba(200,122,32,.5);transition:box-shadow .3s;}
+.btn-amber-lg:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 12px 40px rgba(200,122,32,.45),0 4px 16px rgba(200,122,32,.3);}
+.btn-amber-lg:hover::after{box-shadow:0 0 0 6px rgba(200,122,32,.15);}
+.btn-amber-lg:active{transform:translateY(-1px) scale(1);}
+.btn-arrow{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.2);font-size:13px;transition:transform .2s;}
+.btn-amber-lg:hover .btn-arrow{transform:translateX(3px);}
+.cta-social-proof{display:flex;align-items:center;gap:14px;margin-top:4px;}
+.cta-avs{display:flex;}.cta-av{width:28px;height:28px;border-radius:50%;border:2px solid rgba(200,122,32,.3);overflow:hidden;margin-left:-8px;}.cta-av:first-child{margin-left:0;}.cta-av img{width:100%;height:100%;}
+.cta-proof-txt{font-size:12px;color:rgba(255,255,255,.35);}
+.cta-proof-txt strong{color:rgba(255,255,255,.6);font-weight:600;}
+footer{background:#100c06;padding:54px 22px 28px;color:#6a5040;}
+.ftr-in{max-width:1100px;margin:0 auto;}.ftr-top{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:38px;margin-bottom:44px;}
+.ftr-logo{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.ftr-logo-badge{width:36px;height:36px;border-radius:10px;background:linear-gradient(140deg,#c87a20,#8b4a10);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ftr-logo-name{font-family:'Playfair Display',serif;color:#fff;font-size:19px;font-weight:700;}.ftr-desc{font-size:13px;color:#6a5040;line-height:1.7;}
+.ftr-socrow{display:flex;gap:8px;margin-top:16px;}.fsoc{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;font-size:15px;transition:background .2s;}.fsoc:hover{background:rgba(200,122,32,.2);}
+.ftr-col-t{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#6a5040;margin-bottom:15px;}
+.ftr-lnks{display:flex;flex-direction:column;gap:10px;}.ftr-lnks a{font-size:13px;color:#4a3020;transition:color .2s;cursor:pointer;}.ftr-lnks a:hover{color:#e89a3c;}
+.ftr-bot{border-top:1px solid rgba(255,255,255,.04);padding-top:22px;display:flex;justify-content:space-between;align-items:center;}.ftr-copy{font-size:12px;color:#3a2810;}
+.catpage{min-height:100vh;}
+.catpage-hero{position:relative;height:280px;overflow:hidden;}.catpage-hero img{width:100%;height:100%;}
+.catpage-hero-ov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.15),rgba(0,0,0,.65));}
+.catpage-hero-cnt{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:32px 22px;}
+.back-btn{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:100px;cursor:pointer;margin-bottom:16px;transition:background .2s;width:fit-content;}
+.back-btn:hover{background:rgba(255,255,255,.25);}
+.catpage-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:#fff;letter-spacing:-1px;}.catpage-hero p{font-size:14px;color:rgba(255,255,255,.75);margin-top:4px;}
+.catpage-body{max-width:1100px;margin:0 auto;padding:42px 22px 80px;}
+.cp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.cpcard{border-radius:20px;overflow:hidden;border:1px solid var(--border);background:#fff;transition:all .3s;cursor:pointer;}.cpcard:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(26,18,8,.09);}
+.cpcard-img{height:180px;overflow:hidden;}.cpcard-img img{width:100%;height:100%;transition:transform .4s;}.cpcard:hover .cpcard-img img{transform:scale(1.05);}
+.cpcard-body{padding:16px 18px 18px;}.cpcard-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:5px;}.cpcard-desc{font-size:13px;color:var(--ink3);line-height:1.6;margin-bottom:14px;}
+.cpcard-foot{display:flex;align-items:center;justify-content:space-between;}.cpcard-price{font-size:17px;font-weight:800;color:var(--amber);}
+.cpcard-btn{background:var(--amber);color:#fff;font-size:13px;font-weight:700;padding:8px 18px;border-radius:100px;transition:all .2s;border:none;cursor:pointer;}.cpcard-btn:hover{background:var(--amber-dk);transform:translateY(-1px);}
+@media(max-width:900px){.hero-right{display:none;}.hero-inner{flex-direction:column;}.cat-grid,.feat-grid,.cp-grid{grid-template-columns:repeat(2,1fr);}.feat-grid{grid-template-columns:1fr;}.mgrid{grid-template-columns:1fr;}.ftr-top{grid-template-columns:1fr 1fr;gap:26px;}.ftr-bot{flex-direction:column;gap:14px;}.nav-links{display:none;}.sec-hdr{flex-direction:column;align-items:flex-start;gap:8px;}}
+@media(max-width:480px){.cat-grid{grid-template-columns:repeat(2,1fr);}.cp-grid{grid-template-columns:1fr;}.ftr-top{grid-template-columns:1fr;}}
+
+/* ─── TESTIMONIALS MARQUEE ─── */
+.testi-sec{background:#fff;padding:72px 0 80px;}
+.testi-inner{max-width:1100px;margin:0 auto;padding:0 22px;}
+.marquee-outer{position:relative;width:100%;overflow:hidden;margin-top:8px;}
+.marquee-track{display:flex;gap:20px;width:max-content;animation:marquee-scroll 38s linear infinite;}
+.marquee-track:hover{animation-play-state:paused;}
+@keyframes marquee-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.t-card{background:var(--cream2);border:1px solid var(--border);border-radius:18px;padding:24px;width:300px;flex-shrink:0;transition:box-shadow .2s,transform .2s;}
+.t-card:hover{box-shadow:0 8px 32px rgba(26,18,8,.09);transform:translateY(-3px);}
+.t-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.t-header img{width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;}
+.t-header div:nth-child(2){flex:1;}
+.t-header strong{display:block;font-size:14px;font-weight:700;color:var(--ink);}
+.t-header span{font-size:12px;color:var(--ink3);}
+.t-stars{color:#f59e0b;font-size:12px;margin-left:auto;flex-shrink:0;}
+.t-card p{font-size:13px;color:var(--ink2);line-height:1.65;font-style:italic;}
+.marquee-fade-l,.marquee-fade-r{position:absolute;top:0;width:120px;height:100%;pointer-events:none;z-index:2;}
+.marquee-fade-l{left:0;background:linear-gradient(to right,#ffffff,transparent);}
+.marquee-fade-r{right:0;background:linear-gradient(to left,#ffffff,transparent);}
+
+/* ─── PRICING ─── */
+.pricing-sec{background:var(--cream2);padding:72px 22px;}
+.price-toggle-wrap{display:flex;align-items:center;justify-content:center;gap:0;margin:28px auto 44px;background:rgba(26,18,8,.06);border-radius:100px;padding:4px;width:fit-content;}
+.price-tog{padding:9px 24px;border-radius:100px;font-size:14px;font-weight:600;color:var(--ink2);cursor:pointer;transition:all .2s;border:none;background:transparent;display:flex;align-items:center;gap:8px;}
+.price-tog.active{background:#fff;color:var(--ink);box-shadow:0 2px 10px rgba(26,18,8,.08);}
+.save-badge{background:linear-gradient(135deg,#c87a20,#e89a3c);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;letter-spacing:.3px;}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:880px;margin:0 auto;}
+.price-card{background:#fff;border:1.5px solid var(--border);border-radius:22px;padding:32px;position:relative;transition:all .3s;}
+.price-card:hover{box-shadow:0 12px 40px rgba(26,18,8,.09);transform:translateY(-4px);}
+.price-card-pop{background:var(--ink);border-color:var(--ink);}
+.pc-pop-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#c87a20,#e89a3c);color:#fff;font-size:11px;font-weight:700;padding:4px 14px;border-radius:100px;white-space:nowrap;box-shadow:0 4px 12px rgba(200,122,32,.35);}
+.pc-name{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink2);margin-bottom:14px;}
+.pc-price-wrap{display:flex;align-items:baseline;gap:4px;margin-bottom:4px;}
+.pc-price{font-family:'Playfair Display',serif;font-size:40px;font-weight:700;color:var(--ink);letter-spacing:-1px;transition:all .3s;}
+.pc-per{font-size:14px;color:var(--ink3);}
+.pc-desc{font-size:13px;color:var(--ink3);margin-bottom:22px;line-height:1.6;}
+.pc-feats{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px;}
+.pc-feats li{font-size:14px;color:var(--ink2);display:flex;align-items:center;gap:8px;}
+.pc-feats li::before{content:'✓';color:var(--amber);font-weight:700;font-size:13px;}
+.pc-feats .pc-off{color:var(--ink3);text-decoration:line-through;opacity:.5;}
+.pc-feats .pc-off::before{content:'✗';color:var(--ink3);}
+.pc-feats-light li{color:rgba(255,255,255,.8);}
+.pc-feats-light li::before{color:#e89a3c;}
+.pc-btn{width:100%;padding:12px;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;border:none;transition:all .2s;}
+.pc-btn-outline{background:transparent;border:1.5px solid var(--border);color:var(--ink);}
+.pc-btn-outline:hover{border-color:var(--amber);color:var(--amber);}
+.pc-btn-white{background:#fff;color:var(--ink);}
+.pc-btn-white:hover{background:#f5f0e8;transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,255,255,.2);}
+.pc-btn-dark{background:var(--ink);color:#fff;}
+.pc-btn-dark:hover{background:#3d2010;transform:translateY(-1px);box-shadow:0 4px 16px rgba(26,18,8,.25);}
+
+/* ─── NEW FOOTER ─── */
+.site-footer{background:#100c06;padding:64px 22px 28px;}
+.sf-inner{max-width:1100px;margin:0 auto;}
+.sf-top{display:grid;grid-template-columns:1.8fr 1fr 1fr 1.4fr;gap:44px;margin-bottom:52px;}
+.sf-brand{}
+.sf-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.ftr-logo-badge{width:36px;height:36px;border-radius:10px;background:linear-gradient(140deg,#c87a20,#8b4a10);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sf-logo-name{font-family:'Playfair Display',serif;color:#fff;font-size:19px;font-weight:700;}
+.sf-tagline{font-size:13px;color:#6a5040;line-height:1.7;margin-bottom:18px;}
+.sf-socials{display:flex;gap:8px;}
+.sf-soc{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;color:#6a5040;transition:all .2s;}
+.sf-soc:hover{background:rgba(200,122,32,.18);border-color:rgba(200,122,32,.25);color:#e89a3c;}
+.sf-col-title{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#6a5040;margin-bottom:16px;}
+.sf-links{display:flex;flex-direction:column;gap:11px;}
+.sf-links a{font-size:13px;color:#4a3020;cursor:pointer;transition:color .2s;}
+.sf-links a:hover{color:#e89a3c;}
+.sf-newsletter-desc{font-size:13px;color:#6a5040;line-height:1.6;margin-bottom:14px;}
+.sf-email-form{display:flex;gap:6px;margin-bottom:18px;}
+.sf-email-input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:100px;padding:9px 16px;font-size:13px;color:#fff;outline:none;font-family:'Outfit',sans-serif;transition:border .2s;}
+.sf-email-input::placeholder{color:#6a5040;}
+.sf-email-input:focus{border-color:rgba(200,122,32,.4);}
+.sf-email-btn{width:36px;height:36px;border-radius:50%;background:var(--amber);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;transition:all .2s;}
+.sf-email-btn:hover{background:var(--amber-dk);transform:scale(1.05);}
+.sf-contact-list{display:flex;flex-direction:column;gap:9px;}
+.sf-contact-row{display:flex;align-items:center;gap:8px;font-size:13px;color:#4a3020;}
+.sf-contact-row svg{color:#c87a20;flex-shrink:0;}
+.sf-bottom{border-top:1px solid rgba(255,255,255,.05);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.sf-copy{font-size:12px;color:#3a2810;}
+.sf-legal{display:flex;gap:20px;}
+.sf-legal a{font-size:12px;color:#3a2810;transition:color .2s;}
+.sf-legal a:hover{color:#e89a3c;}
+
+/* ─── RESPONSIVE ADDITIONS ─── */
+@media(max-width:900px){
+  .price-grid{grid-template-columns:1fr;}
+  .sf-top{grid-template-columns:1fr 1fr;gap:28px;}
+  .sf-bottom{flex-direction:column;text-align:center;}
+}
+@media(max-width:480px){
+  .sf-top{grid-template-columns:1fr;}
+}
+
+/* ─── SCROLL-EXPAND HERO ─── */
+.hero{background:var(--cream);min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:72px 22px 60px;}
+.hero-bg-layer{position:absolute;inset:0;z-index:0;transition:opacity .4s;}
+.hero-bg-img{width:100%;height:100%;object-fit:cover;object-position:center;transform-origin:center;transition:transform .1s linear,opacity .4s;}
+.hero-bg-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(253,249,244,.7) 0%,rgba(253,249,244,.55) 40%,rgba(253,249,244,.8) 100%);}
+
+.hero-media-frame{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  z-index:1;
+  border-radius:24px;
+  overflow:hidden;
+  width:320px;height:380px;
+  box-shadow:0 32px 80px rgba(24,16,10,.22),0 4px 20px rgba(24,16,10,.1);
+  transition:width .08s linear,height .08s linear,border-radius .15s,box-shadow .3s;
+  pointer-events:none;
+}
+.hero-media-img{width:100%;height:100%;object-fit:cover;object-position:center;}
+.hero-media-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(24,16,10,.25) 0%,rgba(24,16,10,.05) 60%);transition:opacity .3s;}
+
+.hero-inner{position:relative;z-index:10;transition:opacity .3s;}
+.hero-right{position:relative;flex-shrink:0;display:flex;justify-content:center;}
+
+.scroll-indicator{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  z-index:20;display:flex;flex-direction:column;align-items:center;gap:6px;
+  opacity:1;transition:opacity .4s;
+  animation:scroll-bounce 2.5s ease-in-out infinite;
+}
+.scroll-indicator.hidden{opacity:0;pointer-events:none;}
+@keyframes scroll-bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+.scroll-ind-text{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);}
+.scroll-ind-line{width:1px;height:32px;background:linear-gradient(to bottom,var(--ink3),transparent);}
+
+
+/* ─── HERO FRAME TEXT OVERLAY ─── */
+.hero-frame-text{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:32px;
+  background:linear-gradient(to top,rgba(24,16,10,.7) 0%,transparent 100%);
+  opacity:0;transform:translateY(10px);
+  transition:opacity .4s,transform .4s;
+  z-index:2;pointer-events:none;
+}
+.hero-frame-text.visible{opacity:1;transform:translateY(0);}
+.hero-frame-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.12);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.2);border-radius:100px;
+  padding:5px 14px;font-size:12px;font-weight:600;color:rgba(255,255,255,.9);
+  margin-bottom:10px;
+}
+.hero-frame-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,3.5vw,3rem);
+  font-weight:700;color:white;letter-spacing:-1px;line-height:1.15;
+}
+.hero-frame-title em{font-style:italic;color:#f5c065;}
+
+/* ─── MODERN MENU CARDS ─── */
+.mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+
+.mcard{
+  background:#fff;border-radius:20px;overflow:hidden;
+  border:1px solid var(--border);cursor:pointer;
+  transition:transform .28s cubic-bezier(.34,1.56,.64,1),box-shadow .28s;
+  position:relative;
+}
+.mcard:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(24,16,10,.12);}
+
+.mcard-img-wrap{position:relative;height:200px;overflow:hidden;}
+.mcard-img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+.mcard:hover .mcard-img{transform:scale(1.08);}
+.mcard-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(24,16,10,.35));pointer-events:none;}
+.mcard-badge{
+  position:absolute;top:12px;left:12px;
+  background:rgba(255,255,255,.88);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.5);
+  border-radius:100px;padding:4px 12px;
+  font-size:11px;font-weight:700;color:var(--ink2);
+  box-shadow:0 2px 8px rgba(24,16,10,.1);
+}
+
+.mcard-body{padding:18px 18px 16px;}
+.mcard-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px;}
+.mcard-name{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:4px;font-family:'Playfair Display',serif;}
+.mcard-desc{font-size:12px;color:var(--ink3);line-height:1.5;}
+.mcard-price{font-size:18px;font-weight:800;color:var(--amber);flex-shrink:0;margin-top:1px;}
+
+.mcard-foot{display:flex;align-items:center;justify-content:space-between;margin-top:6px;}
+.madd-btn{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--amber);color:#fff;border:none;cursor:pointer;
+  font-size:18px;font-weight:700;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;box-shadow:0 3px 10px rgba(196,124,26,.3);
+  flex-shrink:0;
+}
+.madd-btn:hover{background:var(--amber-dk);transform:scale(1.12);box-shadow:0 5px 16px rgba(196,124,26,.45);}
+.madd-btn:active{transform:scale(0.95);}
+
+/* Responsive menu grid */
+@media(max-width:1100px){.mgrid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:640px){.mgrid{grid-template-columns:1fr;}.mcard-img-wrap{height:180px;}}
+</style>
+</head>
+<body>
+<div id="pg-home" class="page active">
+<div class="ann" id="ann">
+  &#10022; Hafta sonuna ozel: Her kahvede %20 indirim! <a href="#full-menu">Detaylar &rarr;</a>
+  <span class="ann-x" onclick="this.parentElement.style.display='none'">&times;</span>
+</div>
+<nav class="nav" id="navbar">
+  <div class="nav-inner">
+    <div class="logo" onclick="goHome()">
+      <div class="logo-badge">
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cup body -->
+  <path d="M6 14 L7.5 27 Q7.8 28.5 9.5 29 L22.5 29 Q24.2 28.5 24.5 27 L26 14 Z" fill="rgba(255,255,255,0.88)" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+  <!-- Cup rim -->
+  <rect x="5" y="12.5" width="22" height="2.5" rx="1.25" fill="rgba(255,255,255,0.95)"/>
+  <!-- Handle -->
+  <path d="M26 16 Q30 16 30 19.5 Q30 23 26 23" stroke="rgba(255,255,255,0.85)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <!-- Coffee surface -->
+  <ellipse cx="16" cy="17.5" rx="6.5" ry="1.3" fill="rgba(139,74,16,0.5)"/>
+  <!-- Saucer -->
+  <ellipse cx="16" cy="30" rx="8.5" ry="1.8" fill="rgba(255,255,255,0.65)"/>
+  <!-- Leaf/plant sprout from cup -->
+  <path d="M16 12 Q16 7 19 5 Q21 3.5 23 4 Q22 7 20 9 Q18.5 10.5 16 12Z" fill="rgba(80,160,80,0.9)" stroke="rgba(60,130,60,0.3)" stroke-width="0.5"/>
+  <path d="M16 12 Q16 7 13 5 Q11 3.5 9 4 Q10 7 12 9 Q13.5 10.5 16 12Z" fill="rgba(70,150,70,0.75)" stroke="rgba(60,130,60,0.3)" stroke-width="0.5"/>
+  <!-- Stem -->
+  <path d="M16 12 L16 10" stroke="rgba(60,120,60,0.8)" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- Steam wisps -->
+  <path d="M12 10 Q12.8 8 12 6" stroke="rgba(255,255,255,0.45)" stroke-width="1" stroke-linecap="round" fill="none"/>
+  <path d="M16 9 Q16.8 7 16 5" stroke="rgba(255,255,255,0.35)" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+  <path d="M20 10 Q20.8 8 20 6" stroke="rgba(255,255,255,0.45)" stroke-width="1" stroke-linecap="round" fill="none"/>
+</svg>
+      </div>
+      <span class="logo-wordmark">Kahve Dura&#287;&#305;</span>
+    </div>
+    <div class="nav-links">
+      <a onclick="smoothTo('menu')">Men&uuml;</a>
+      <a onclick="smoothTo('full-menu')">Sipari&#351;</a>
+      <a onclick="smoothTo('contact')">&Idot;leti&#351;im</a>
+    </div>
+    <button class="nav-cta" onclick="smoothTo('full-menu')">Sipari&#351; Ver &rarr;</button>
+  </div>
+</nav>
+<section class="hero" id="home">
+  <!-- Full bleed background: coffee shop atmosphere -->
+  <div class="hero-bg-layer" id="hero-bg">
+    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1800&q=90" alt="Kafe" class="hero-bg-img" id="hero-bg-img">
+    <div class="hero-bg-overlay" id="hero-bg-overlay"></div>
+  </div>
+
+  <!-- Expanding coffee image frame -->
+  <div class="hero-media-frame" id="hero-media-frame">
+    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1400&q=90" alt="Kahve" class="hero-media-img">
+    <div class="hero-media-overlay" id="hero-media-overlay"></div>
+    <!-- Text overlay on the expanding frame -->
+    <div class="hero-frame-text" id="hero-frame-text">
+      <span class="hero-frame-badge">&#127775; Kahve Dura&#287;&#305;</span>
+      <h2 class="hero-frame-title">Lezzetin tam<br><em>do&#287;ru</em> adresi</h2>
+    </div>
+  </div>
+
+  <!-- Main text — visible at start, fades on scroll -->
+  <div class="hero-inner" id="hero-main-content">
+    <div class="hero-left">
+      <div class="status-pill"><span class="sdot"></span> Bug&uuml;n A&ccedil;&#305;k &middot; 07:00 &ndash; 22:00</div>
+      <h1>
+        Her g&uuml;n <span class="rword" id="rot">lezzetli</span>,<br>
+        her zaman <em>sizin i&ccedil;in.</em>
+      </h1>
+      <p class="hero-desc">El yap&#305;m&#305; kahveler, taze sandvi&ccedil;ler ve &ouml;zel tatl&#305;lar. Her g&uuml;n sevin&ccedil;le haz&#305;rlan&#305;yor, her yudumda hissediliyor.</p>
+      <div class="hero-acts">
+        <button class="btn-amber" onclick="smoothTo('menu')">Men&uuml;y&uuml; Ke&#351;fet &#8595;</button>
+        <button class="btn-ghost2" onclick="smoothTo('contact')">Bizi Bul</button>
+      </div>
+      <div class="hero-social">
+        <div class="avs">
+          <div class="av"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80" alt=""></div>
+          <div class="av"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80" alt=""></div>
+          <div class="av"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80" alt=""></div>
+          <div class="av"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80" alt=""></div>
+        </div>
+        <div class="soc-txt"><p><span class="strs">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.9 puan</p><small>1.200+ mutlu m&uuml;&#351;teri</small></div>
+      </div>
+    </div>
+
+    <!-- Phone mockup, fades with text -->
+    <div class="hero-right">
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="phone-top"><small>Dijital Men&uuml;</small><h3>Kahve Dura&#287;&#305;</h3></div>
+          <div class="phone-hero-img"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80" alt="Kahve"></div>
+          <div class="phone-cats"><small>Kategoriler</small>
+            <div class="pcatrow"><span class="pcat a">Kahve</span><span class="pcat">Tatl&#305;</span><span class="pcat">Sandvi&ccedil;</span></div>
+          </div>
+          <div class="pdiv"></div>
+          <div class="pitem"><div class="pthumb"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=120&q=80" alt="Latte"></div><div><div class="pname">Latte</div><div class="psub">S&uuml;tl&uuml; &middot; Vanilyalı</div></div><div class="pprice">&#x20BA;85</div></div>
+          <div class="pdiv"></div>
+          <div class="pitem"><div class="pthumb"><img src="https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?w=120&q=80" alt="Cheesecake"></div><div><div class="pname">Cheesecake</div><div class="psub">Ev yap&#305;m&#305;</div></div><div class="pprice">&#x20BA;120</div></div>
+        </div>
+      </div>
+      <div class="fbadge2 fqr"><div class="qrv"></div><p>QR Tara</p></div>
+      <div class="fbadge2 frat"><div class="rnum">4.9</div><div class="rst">&#9733;&#9733;&#9733;&#9733;&#9733;</div><small>1.2K yorum</small></div>
+    </div>
+  </div>
+
+  <!-- Scroll down indicator -->
+  <div class="scroll-indicator" id="scroll-indicator">
+    <div class="scroll-ind-text">A&#351;a&#287;&#305; kayd&#305;r</div>
+    <div class="scroll-ind-line"></div>
+  </div>
+</section>
+<section class="cats-sec" id="menu">
+  <div class="si">
+    <div class="eyebrow">Men&uuml;</div>
+    <h2 class="sec-title">Her damak zevkine<br>bir lezzet.</h2>
+    <p class="sec-sub">Taze malzemelerle haz&#305;rlanan men&uuml;m&uuml;zde herkes i&ccedil;in bir &#351;eyler var.</p>
+    <div class="cat-grid">
+      <div class="cat-card" onclick="goCategory('coffee')">
+        <div class="cat-vis"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80" alt="Sicak Kahveler" loading="lazy"><div class="cat-overlay"></div><div class="cat-cnt">12 &ccedil;e&#351;it</div></div>
+        <div class="cat-body"><div class="cat-name">S&#305;cak Kahveler</div><div class="cat-sub2">&#x20BA;55 &ndash; &#x20BA;110</div></div>
+      </div>
+      <div class="cat-card" onclick="goCategory('sandwich')">
+        <div class="cat-vis"><img src="https://images.unsplash.com/photo-1528736235302-52922df5c122?w=600&q=80" alt="Sandvic" loading="lazy"><div class="cat-overlay"></div><div class="cat-cnt">8 &ccedil;e&#351;it</div></div>
+        <div class="cat-body"><div class="cat-name">Sandvi&ccedil; &amp; Tost</div><div class="cat-sub2">&#x20BA;95 &ndash; &#x20BA;160</div></div>
+      </div>
+      <div class="cat-card" onclick="goCategory('dessert')">
+        <div class="cat-vis"><img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&q=80" alt="Tatlılar" loading="lazy"><div class="cat-overlay"></div><div class="cat-cnt">10 &ccedil;e&#351;it</div></div>
+        <div class="cat-body"><div class="cat-name">Tatl&#305;lar</div><div class="cat-sub2">&#x20BA;75 &ndash; &#x20BA;145</div></div>
+      </div>
+      <div class="cat-card" onclick="goCategory('cold')">
+        <div class="cat-vis"><img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=600&q=80" alt="Soguk" loading="lazy"><div class="cat-overlay"></div><div class="cat-cnt">6 &ccedil;e&#351;it</div></div>
+        <div class="cat-body"><div class="cat-name">So&#287;uk &Idot;&ccedil;ecekler</div><div class="cat-sub2">&#x20BA;65 &ndash; &#x20BA;120</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="feat-sec">
+  <div class="si">
+    <div class="sec-hdr"><div><div class="eyebrow">&Ouml;ne &Ccedil;&#305;kanlar</div><h2 class="sec-title" style="margin-bottom:0">M&uuml;&#351;teri favorileri.</h2></div><span class="see-all" onclick="smoothTo('full-menu')">T&uuml;m&uuml;n&uuml; G&ouml;r &rarr;</span></div>
+    <div class="feat-grid">
+      <div class="fcard"><div class="fimg fimg-lg"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=700&q=80" alt="Latte" loading="lazy"><div class="foverlay"></div><div class="fbadge bp">&#9733; Pop&uuml;ler</div><div class="fadd">+</div></div><div class="fbody"><div class="frat2"><span class="st">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span>(218 yorum)</span></div><div class="fname">&Ouml;zel Latte</div><p class="fdesc">G&uuml;nl&uuml;k taze &ccedil;ekilen Etiyopya kahvesi, el k&ouml;p&uuml;rtmeli s&uuml;t ve ev yap&#305;m&#305; vanilyalı &#351;urup.</p><div class="ffoot"><span class="fprice">&#x20BA;85</span><span class="forder">Sepete Ekle +</span></div></div></div>
+      <div class="fcard"><div class="fimg fimg-sm"><img src="https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?w=500&q=80" alt="Cheesecake" loading="lazy"><div class="foverlay"></div><div class="fbadge bs">Ev Yap&#305;m&#305;</div><div class="fadd">+</div></div><div class="fbody"><div class="fname">NY Cheesecake</div><p class="fdesc">G&uuml;nl&uuml;k taze pi&#351;irilen.</p><div class="ffoot"><span class="fprice">&#x20BA;120</span></div></div></div>
+      <div class="fcard"><div class="fimg fimg-sm"><img src="https://images.unsplash.com/photo-1590301157890-4810ed352733?w=500&q=80" alt="Acai" loading="lazy"><div class="foverlay"></div><div class="fbadge bn">Yeni</div><div class="fadd">+</div></div><div class="fbody"><div class="fname">Acai Bowl</div><p class="fdesc">Granola, muz, &ccedil;ilek.</p><div class="ffoot"><span class="fprice">&#x20BA;145</span></div></div></div>
+    </div>
+  </div>
+</section>
+<section class="menu-sec" id="full-menu">
+  <div class="si">
+    <div class="menu-hdr">
+      <div>
+        <div class="eyebrow">T&uuml;m Men&uuml;</div>
+        <h2 class="sec-title menu-main-title">Ne istersiniz?</h2>
+        <p class="menu-desc-txt">Taze malzemelerle haz&#305;rlanan, her g&uuml;n sevgiyle pi&#351;irilen lezzetler.</p>
+      </div>
+      <div class="menu-hdr-right">
+        <span class="kdv-pill">KDV dahil fiyatlar</span>
+      </div>
+    </div>
+
+    <!-- Filter chips -->
+    <div class="ftabs">
+      <button class="ftab active" data-filter="all" onclick="filterMenu(this)"><span class="ftab-dot"></span>T&uuml;m&uuml;</button>
+      <button class="ftab" data-filter="coffee" onclick="filterMenu(this)">&#9749; Kahve</button>
+      <button class="ftab" data-filter="sandwich" onclick="filterMenu(this)">&#x1F956; Sandvi&ccedil;</button>
+      <button class="ftab" data-filter="dessert" onclick="filterMenu(this)">&#x1F370; Tatl&#305;</button>
+      <button class="ftab" data-filter="cold" onclick="filterMenu(this)">&#x1F9C3; So&#287;uk</button>
+    </div>
+
+    <!-- Modern card grid -->
+    <div class="mgrid" id="mgrid">
+
+      <div class="mcard" data-cat="coffee">
+        <div class="mcard-img-wrap">
+          <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400&q=85" alt="Filtre Kahve" class="mcard-img">
+          <div class="mcard-overlay"></div>
+          <div class="mcard-badge">&#9749; Kahve</div>
+        </div>
+        <div class="mcard-body">
+          <div class="mcard-top">
+            <div>
+              <div class="mcard-name">Filtre Kahve</div>
+              <div class="mcard-desc">Etiyopya &middot; Orta kavrum &middot; &Ccedil;i&ccedil;eksi notalar</div>
+            </div>
+            <span class="mcard-price">&#x20BA;65</span>
+          </div>
+          <div class="mcard-foot">
+            <div class="mtags"><span class="mtag">Single Origin</span><span class="mtag">Vegan</span></div>
+            <button class="madd-btn" onclick="event.stopPropagation()">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mcard" data-cat="coffee">
+        <div class="mcard-img-wrap">
+          <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400&q=85" alt="Cappuccino" class="mcard-img">
+          <div class="mcard-overlay"></div>
+          <div class="mcard-badge">&#9749; Kahve</div>
+        </div>
+        <div class="mcard-body">
+          <div class="mcard-top">
+            <div>
+              <div class="mcard-name">Cappuccino</div>
+              <div class="mcard-desc">&Ccedil;ift shot &middot; &Idot;nce k&ouml;p&uuml;k &middot; Barista yap&#305;m&#305;</div>
+            </div>
+            <span class="mcard-price">&#x20BA;85</span>
+          </div>
+          <div class="mcard-foot">
+            <div class="mtags"><span class="mtag">S&uuml;tl&uuml;</span><span class="mtag">S&#305;cak</span></div>
+            <button class="madd-btn" onclick="event.stopPropagation()">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mcard" data-cat="dessert">
+        <div class="mcard-img-wrap">
+          <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&q=85" alt="Tiramisu" class="mcard-img">
+          <div class="mcard-overlay"></div>
+          <div class="mcard-badge">&#x1F370; Tatl&#305;</div>
+        </div>
+        <div class="mcard-body">
+          <div class="mcard-top">
+            <div>
+              <div class="mcard-name">Tiramisu</div>
+              <div class="mcard-desc">Ev yap&#305;m&#305; &middot; G&uuml;nl&uuml;k taze &middot; Maskarpone kremal&#305;</div>
+            </div>
+            <span class="mcard-price">&#x20BA;110</span>
+          </div>
+          <div class="mcard-foot">
+            <div class="mtags"><span class="mtag">Ev Yap&#305;m&#305;</span></div>
+            <button class="madd-btn" onclick="event.stopPropagation()">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mcard" data-cat="cold">
+        <div class="mcard-img-wrap">
+          <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=85" alt="Matcha" class="mcard-img">
+          <div class="mcard-overlay"></div>
+          <div class="mcard-badge">&#x1F9C3; So&#287;uk</div>
+        </div>
+        <div class="mcard-body">
+          <div class="mcard-top">
+            <div>
+              <div class="mcard-name">Matcha Latte</div>
+              <div class="mcard-desc">Japon mat&ccedil;a &middot; S&#305;cak veya buzlu &middot; Oat milk</div>
+            </div>
+            <span class="mcard-price">&#x20BA;95</span>
+          </div>
+          <div class="mcard-foot">
+            <div class="mtags"><span class="mtag">Sa&#287;l&#305;kl&#305;</span><span class="mtag">Vegan</span></div>
+            <button class="madd-btn" onclick="event.stopPropagation()">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mcard" data-cat="sandwich">
+        <div class="mcard-img-wrap">
+          <img src="https://images.unsplash.com/photo-1528736235302-52922df5c122?w=400&q=85" alt="Club Sandvic" class="mcard-img">
+          <div class="mcard-overlay"></div>
+          <div class="mcard-badge">&#x1F956; Sandvi&ccedil;</div>
+        </div>
+        <div class="mcard-body">
+          <div class="mcard-top">
+            <div>
+              <div class="mcard-name">Club Sandvi&ccedil;</div>
+              <div class="mcard-desc">Tam bu&#287;day ekmek &middot; Taze sebze &middot; Ev yap&#305;m&#305; sos</div>
+            </div>
+            <span class="mcard-price">&#x20BA;150</span>
+          </div>
+          <div class="mcard-foot">
+            <div class="mtags"><span class="mtag">Doyurucu</span></div>
+            <button class="madd-btn" onclick="event.stopPropagation()">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mcard" data-cat="cold">
+        <div class="mcard-img-wrap">
+          <img src="https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=400&q=85" alt="Berry Smoothie" class="mcard-img">
+          <div class="mcard-overlay"></div>
+          <div class="mcard-badge">&#x1F9C3; So&#287;uk</div>
+        </div>
+        <div class="mcard-body">
+          <div class="mcard-top">
+            <div>
+              <div class="mcard-name">Berry Smoothie</div>
+              <div class="mcard-desc">Muz &middot; &Ccedil;ilek &middot; Yaban mersini &middot; Chia</div>
+            </div>
+            <span class="mcard-price">&#x20BA;105</span>
+          </div>
+          <div class="mcard-foot">
+            <div class="mtags"><span class="mtag">Antioksidan</span><span class="mtag">Vegan</span></div>
+            <button class="madd-btn" onclick="event.stopPropagation()">+</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="menu-see-more">
+      <button class="menu-see-btn" onclick="smoothTo('menu')">T&uuml;m kategorileri ke&#351;fet &rarr;</button>
+    </div>
+  </div>
+</section>
+<section class="qrcta">
+  <div class="qrcta-noise"></div>
+  <div class="qrcta-orb1"></div>
+  <div class="qrcta-orb2"></div>
+  <div class="qrcta-orb3"></div>
+  <div class="qrcta-ring"></div>
+  <div class="qrcta-ring2"></div>
+  <div class="qrcta-in">
+    <div class="qrcta-badge"><span class="qrcta-badge-dot"></span>QR ile H&#305;zl&#305; Eri&#351;im</div>
+    <h2>Bir tarama ile<br><span class="grad">an&#305;nda men&uuml;de</span> olun.</h2>
+    <p class="qrcta-sub">Telefonunuzu tutun, QR kodu okutun. Ka&#287;&#305;t men&uuml; bekleme yok &mdash; lezzet hemen kar&#351;&#305;n&#305;zda.</p>
+    <div class="qrcta-qr-wrap">
+      <div class="qrcta-qr-glow"></div>
+      <div class="qrcta-qr">
+        <svg id="qr-svg" viewBox="0 0 37 37" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;border-radius:8px;">
+          <!-- White background -->
+          <rect width="37" height="37" fill="white"/>
+          <!-- Top-left finder pattern -->
+          <rect x="1" y="1" width="7" height="7" rx="1" fill="#18100a"/>
+          <rect x="2" y="2" width="5" height="5" rx="0.5" fill="white"/>
+          <rect x="3" y="3" width="3" height="3" fill="#c47c1a"/>
+          <!-- Top-right finder pattern -->
+          <rect x="29" y="1" width="7" height="7" rx="1" fill="#18100a"/>
+          <rect x="30" y="2" width="5" height="5" rx="0.5" fill="white"/>
+          <rect x="31" y="3" width="3" height="3" fill="#c47c1a"/>
+          <!-- Bottom-left finder pattern -->
+          <rect x="1" y="29" width="7" height="7" rx="1" fill="#18100a"/>
+          <rect x="2" y="30" width="5" height="5" rx="0.5" fill="white"/>
+          <rect x="3" y="31" width="3" height="3" fill="#c47c1a"/>
+          <!-- Data modules - top area -->
+          <rect x="9" y="1" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="11" y="1" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="13" y="1" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="16" y="1" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="18" y="1" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="21" y="1" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="23" y="1" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="26" y="1" width="1.2" height="1.2" fill="#18100a"/>
+          <!-- Row 2 -->
+          <rect x="10" y="3" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="14" y="3" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="17" y="3" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="20" y="3" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="24" y="3" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="27" y="3" width="1.2" height="1.2" fill="#18100a"/>
+          <!-- Row 3 -->
+          <rect x="9" y="5" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="13" y="5" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="16" y="5" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="20" y="5" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="22" y="5" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="26" y="5" width="1.2" height="1.2" fill="#18100a"/>
+          <!-- Left column data -->
+          <rect x="1" y="9" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="3" y="9" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="5" y="9" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="7" y="9" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="1" y="11" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="5" y="11" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="7" y="11" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="1" y="13" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="4" y="13" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="7" y="13" width="1.2" height="1.2" fill="#18100a"/>
+          <!-- Center data area -->
+          <rect x="9" y="9" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="11" y="9" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="15" y="9" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="17" y="9" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="21" y="9" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="24" y="9" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="27" y="9" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="29" y="9" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="31" y="9" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="35" y="9" width="1.2" height="1.2" fill="#18100a"/>
+          <!-- Center data rows -->
+          <rect x="9" y="11" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="13" y="11" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="16" y="11" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="19" y="11" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="22" y="11" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="26" y="11" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="29" y="11" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="33" y="11" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="35" y="11" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="9" y="13" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="12" y="13" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="16" y="13" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="20" y="13" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="23" y="13" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="25" y="13" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="29" y="13" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="32" y="13" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="36" y="13" width="1.2" height="1.2" fill="#18100a"/>
+          <!-- Timing pattern (alternating) -->
+          <rect x="8" y="6" width="1" height="1" fill="#18100a"/>
+          <rect x="10" y="6" width="1" height="1" fill="#18100a"/>
+          <rect x="12" y="6" width="1" height="1" fill="#18100a"/>
+          <rect x="14" y="6" width="1" height="1" fill="#18100a"/>
+          <rect x="16" y="6" width="1" height="1" fill="#18100a"/>
+          <rect x="18" y="6" width="1" height="1" fill="#18100a"/>
+          <rect x="20" y="6" width="1" height="1" fill="#18100a"/>
+          <rect x="6" y="8" width="1" height="1" fill="#18100a"/>
+          <rect x="6" y="10" width="1" height="1" fill="#18100a"/>
+          <rect x="6" y="12" width="1" height="1" fill="#18100a"/>
+          <rect x="6" y="14" width="1" height="1" fill="#18100a"/>
+          <rect x="6" y="16" width="1" height="1" fill="#18100a"/>
+          <rect x="6" y="18" width="1" height="1" fill="#18100a"/>
+          <!-- More central data -->
+          <rect x="9" y="15" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="13" y="15" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="16" y="15" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="19" y="15" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="23" y="15" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="26" y="15" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="30" y="15" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="33" y="15" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="35" y="15" width="1.2" height="1.2" fill="#18100a"/>
+          <!-- Center logo area (small coffee bean) -->
+          <rect x="15" y="15" width="7" height="7" rx="1" fill="#18100a"/>
+          <rect x="15.5" y="15.5" width="6" height="6" rx="0.5" fill="white"/>
+          <rect x="17" y="17" width="4" height="4" rx="0.5" fill="#c47c1a"/>
+          <rect x="18" y="16" width="1" height="5.5" rx="0.3" fill="rgba(255,255,255,0.5)"/>
+          <!-- Bottom rows data -->
+          <rect x="1" y="15" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="3" y="15" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="7" y="15" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="1" y="17" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="5" y="17" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="1" y="19" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="4" y="19" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="6" y="19" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="9" y="17" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="12" y="17" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="23" y="17" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="27" y="17" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="30" y="17" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="34" y="17" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="9" y="19" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="13" y="19" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="24" y="19" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="26" y="19" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="30" y="19" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="33" y="19" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="36" y="19" width="1.2" height="1.2" fill="#18100a"/>
+          <!-- Lower section data modules -->
+          <rect x="1" y="21" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="5" y="21" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="7" y="21" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="9" y="21" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="12" y="21" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="16" y="21" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="19" y="21" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="23" y="21" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="26" y="21" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="28" y="21" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="32" y="21" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="36" y="21" width="1.2" height="1.2" fill="#18100a"/>
+          <!-- Row 23 -->
+          <rect x="1" y="23" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="3" y="23" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="7" y="23" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="10" y="23" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="14" y="23" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="17" y="23" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="20" y="23" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="24" y="23" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="27" y="23" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="31" y="23" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="34" y="23" width="1.2" height="1.2" fill="#18100a"/>
+          <!-- Bottom rows -->
+          <rect x="1" y="25" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="5" y="25" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="9" y="25" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="12" y="25" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="15" y="25" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="19" y="25" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="22" y="25" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="26" y="25" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="29" y="25" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="32" y="25" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="35" y="25" width="1.2" height="1.2" fill="#18100a"/>
+          <!-- Row 27 -->
+          <rect x="1" y="27" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="4" y="27" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="7" y="27" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="9" y="27" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="13" y="27" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="16" y="27" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="20" y="27" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="23" y="27" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="27" y="27" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="30" y="27" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="33" y="27" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="36" y="27" width="1.2" height="1.2" fill="#18100a"/>
+          <!-- Right side data column -->
+          <rect x="29" y="15" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="32" y="15" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="36" y="15" width="1.2" height="1.2" fill="#18100a"/>
+          <!-- Rows 29-35 for bottom right area -->
+          <rect x="9" y="29" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="11" y="29" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="15" y="29" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="18" y="29" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="22" y="29" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="24" y="29" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="28" y="29" width="7" height="7" rx="1" fill="#18100a"/>
+          <rect x="29" y="30" width="5" height="5" rx="0.5" fill="white"/>
+          <rect x="30" y="31" width="3" height="3" fill="#c47c1a"/>
+          <rect x="9" y="31" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="13" y="31" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="16" y="31" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="19" y="31" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="23" y="31" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="25" y="31" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="9" y="33" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="12" y="33" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="17" y="33" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="20" y="33" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="23" y="33" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="9" y="35" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="13" y="35" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="16" y="35" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="20" y="35" width="1.2" height="1.2" fill="#18100a"/>
+          <rect x="22" y="35" width="2.2" height="1.2" fill="#18100a"/>
+          <rect x="26" y="35" width="1.2" height="1.2" fill="#18100a"/>
+        </svg>
+      </div>
+    </div>
+    <div class="qrurl">&#9889;&nbsp; qrmenu.io/<span>kahve-duragi</span></div>
+    <button class="btn-amber-lg" onclick="smoothTo('menu')">
+      Men&uuml;y&uuml; Ke&#351;fet
+      <span class="btn-arrow">&rarr;</span>
+    </button>
+    <div class="cta-social-proof">
+      <div class="cta-avs">
+        <div class="cta-av"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&q=80" alt=""></div>
+        <div class="cta-av"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&q=80" alt=""></div>
+        <div class="cta-av"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=60&q=80" alt=""></div>
+      </div>
+      <span class="cta-proof-txt"><strong>1.200+</strong> mutlu m&uuml;&#351;teri her g&uuml;n kullan&#305;yor</span>
+    </div>
+  </div>
+</section>
+<!-- TESTIMONIALS MARQUEE -->
+<section class="testi-sec">
+  <div class="testi-inner">
+    <div class="eyebrow" style="text-align:center">Yorumlar</div>
+    <h2 class="sec-title" style="text-align:center;margin-bottom:6px">M&#252;&#351;terilerimiz anlat&#305;yor.</h2>
+    <p style="text-align:center;font-size:15px;color:var(--ink3);margin-bottom:48px;">Ger&#231;ek deneyimler, ger&#231;ek insanlardan.</p>
+  </div>
+  <div class="marquee-outer">
+    <div class="marquee-track" id="marquee-track">
+      <div class="t-card"><div class="t-header"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80" alt="Ayse"><div><strong>Ay&#351;e K.</strong><span>Adana</span></div><div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div><p>Adana'da gittigim en iyi kafe. Kahveler m&#252;kemmel, ortam &#231;ok s&#305;cak. Art&#305;k her hafta geliyorum.</p></div>
+      <div class="t-card"><div class="t-header"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80" alt="Mehmet"><div><strong>Mehmet Y.</strong><span>M&#252;&#351;teri</span></div><div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div><p>Cheesecake'leri hayat&#305;mda yedim en g&#252;zel cheesecake. Barista arkada&#351;lar da &#231;ok ilgili.</p></div>
+      <div class="t-card"><div class="t-header"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80" alt="Elif"><div><strong>Elif S.</strong><span>&#304;&#351; insan&#305;</span></div><div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div><p>Toplant&#305; &#246;ncesi ve sonras&#305; u&#287;rad&#305;&#287;&#305;m yer. Hem sakin ortam hem s&#252;per filtre kahve.</p></div>
+      <div class="t-card"><div class="t-header"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80" alt="Can"><div><strong>Can T.</strong><span>&#214;&#287;renci</span></div><div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div><p>&#199;al&#305;&#351;mak i&#231;in en sevdi&#287;im mekan. WiFi h&#305;zl&#305;, kahveler taze, personel g&#252;ler y&#252;zl&#252;.</p></div>
+      <div class="t-card"><div class="t-header"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&q=80" alt="Selin"><div><strong>Selin A.</strong><span>Grafik Tasar&#305;mc&#305;</span></div><div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div><p>Flat white'lar&#305; &#231;ok ba&#351;ar&#305;l&#305;, latte art m&#252;thi&#351;. Her sabah g&#252;neme buradan ba&#351;l&#305;yorum art&#305;k.</p></div>
+      <div class="t-card"><div class="t-header"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&q=80" alt="Zeynep"><div><strong>Zeynep M.</strong><span>Doktor</span></div><div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div><p>N&#246;bet sonras&#305; tek gitmek istedi&#287;im yer. Tiramisu ve s&#252;tl&#252; latte kombinasyonu harika.</p></div>
+      <div class="t-card t-card-dup"><div class="t-header"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80" alt="Ayse"><div><strong>Ay&#351;e K.</strong><span>Adana</span></div><div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div><p>Adana'da gittigim en iyi kafe. Kahveler m&#252;kemmel, ortam &#231;ok s&#305;cak. Art&#305;k her hafta geliyorum.</p></div>
+      <div class="t-card t-card-dup"><div class="t-header"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80" alt="Mehmet"><div><strong>Mehmet Y.</strong><span>M&#252;&#351;teri</span></div><div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div><p>Cheesecake'leri hayat&#305;mda yedim en g&#252;zel cheesecake. Barista arkada&#351;lar da &#231;ok ilgili.</p></div>
+      <div class="t-card t-card-dup"><div class="t-header"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80" alt="Elif"><div><strong>Elif S.</strong><span>&#304;&#351; insan&#305;</span></div><div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div><p>Toplant&#305; &#246;ncesi ve sonras&#305; u&#287;rad&#305;&#287;&#305;m yer. Hem sakin ortam hem s&#252;per filtre kahve.</p></div>
+      <div class="t-card t-card-dup"><div class="t-header"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80" alt="Can"><div><strong>Can T.</strong><span>&#214;&#287;renci</span></div><div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div><p>&#199;al&#305;&#351;mak i&#231;in en sevdi&#287;im mekan. WiFi h&#305;zl&#305;, kahveler taze, personel g&#252;ler y&#252;zl&#252;.</p></div>
+      <div class="t-card t-card-dup"><div class="t-header"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&q=80" alt="Selin"><div><strong>Selin A.</strong><span>Grafik Tasar&#305;mc&#305;</span></div><div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div><p>Flat white'lar&#305; &#231;ok ba&#351;ar&#305;l&#305;. Her sabah g&#252;neme buradan ba&#351;l&#305;yorum art&#305;k.</p></div>
+      <div class="t-card t-card-dup"><div class="t-header"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&q=80" alt="Zeynep"><div><strong>Zeynep M.</strong><span>Doktor</span></div><div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div><p>N&#246;bet sonras&#305; tek gitmek istedi&#287;im yer. Tiramisu ve s&#252;tl&#252; latte kombinasyonu harika.</p></div>
+    </div>
+    <div class="marquee-fade-l"></div>
+    <div class="marquee-fade-r"></div>
+  </div>
+</section>
+
+<!-- PRICING SECTION -->
+<section class="pricing-sec" id="pricing">
+  <div class="si">
+    <div class="eyebrow" style="text-align:center">Planlar</div>
+    <h2 class="sec-title" style="text-align:center;margin-bottom:8px">&#304;&#351;letmeniz i&#231;in do&#287;ru plan.</h2>
+    <p style="text-align:center;font-size:15px;color:var(--ink3);margin-bottom:12px;">QR men&#252; sistemini kendi kafen&#252;ze ta&#351;&#305;y&#305;n.</p>
+    <div class="price-toggle-wrap">
+      <button class="price-tog active" data-freq="monthly" onclick="setFreq(this,'monthly')">Ayl&#305;k</button>
+      <button class="price-tog" data-freq="yearly" onclick="setFreq(this,'yearly')">Y&#305;ll&#305;k <span class="save-badge">%35 tasarruf</span></button>
+    </div>
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="pc-name">Ba&#351;lang&#305;&#231;</div>
+        <div class="pc-price-wrap">
+          <div class="pc-price" data-monthly="&#xfccretsiz" data-yearly="&#xfccretsiz">&#220;cretsiz</div>
+          <div class="pc-per">sonsuza kadar</div>
+        </div>
+        <p class="pc-desc">Ki&#351;isel projeler ve deneme i&#231;in</p>
+        <ul class="pc-feats">
+          <li>1 QR landing page</li>
+          <li>3 &#351;ablon se&#231;ene&#287;i</li>
+          <li>Temel analitik</li>
+          <li class="pc-off">&#214;zel domain</li>
+        </ul>
+        <button class="pc-btn pc-btn-outline">&#220;cretsiz Ba&#351;la</button>
+      </div>
+      <div class="price-card price-card-pop">
+        <div class="pc-pop-badge">&#128293; En Pop&#252;ler</div>
+        <div class="pc-name" style="color:white">Pro</div>
+        <div class="pc-price-wrap">
+          <div class="pc-price" id="pro-price" style="color:white">&#x20BA;49</div>
+          <div class="pc-per" style="color:rgba(255,255,255,.6)">/ay</div>
+        </div>
+        <p class="pc-desc" style="color:rgba(255,255,255,.7)">K&#252;&#231;&#252;k i&#351;letmeler i&#231;in ideal</p>
+        <ul class="pc-feats pc-feats-light">
+          <li>5 QR landing page</li>
+          <li>T&#252;m &#351;ablonlar</li>
+          <li>Geli&#351;mi&#351; analitik</li>
+          <li>&#214;zel subdomain</li>
+        </ul>
+        <button class="pc-btn pc-btn-white">Pro'ya Ge&#231; &#x2192;</button>
+      </div>
+      <div class="price-card">
+        <div class="pc-name">Business</div>
+        <div class="pc-price-wrap">
+          <div class="pc-price" id="biz-price">&#x20BA;149</div>
+          <div class="pc-per">/ay</div>
+        </div>
+        <p class="pc-desc">Birden fazla &#351;ube i&#231;in</p>
+        <ul class="pc-feats">
+          <li>S&#305;n&#305;rs&#305;z QR page</li>
+          <li>&#214;zel domain</li>
+          <li>API eri&#351;imi</li>
+          <li>&#214;ncelikli destek</li>
+        </ul>
+        <button class="pc-btn pc-btn-dark">Sat&#305;n Al</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact" class="site-footer">
+  <div class="sf-inner">
+    <div class="sf-top">
+      <div class="sf-brand">
+        <div class="sf-logo">
+          <div class="ftr-logo-badge"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 14 L7.5 27 Q7.8 28.5 9.5 29 L22.5 29 Q24.2 28.5 24.5 27 L26 14 Z" fill="rgba(255,255,255,0.88)" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/><rect x="5" y="12.5" width="22" height="2.5" rx="1.25" fill="rgba(255,255,255,0.95)"/><path d="M26 16 Q30 16 30 19.5 Q30 23 26 23" stroke="rgba(255,255,255,0.85)" stroke-width="2.2" fill="none" stroke-linecap="round"/><ellipse cx="16" cy="17.5" rx="6.5" ry="1.3" fill="rgba(139,74,16,0.5)"/><ellipse cx="16" cy="30" rx="8.5" ry="1.8" fill="rgba(255,255,255,0.65)"/><path d="M16 12 Q16 7 19 5 Q21 3.5 23 4 Q22 7 20 9 Q18.5 10.5 16 12Z" fill="rgba(80,160,80,0.9)"/><path d="M16 12 Q16 7 13 5 Q11 3.5 9 4 Q10 7 12 9 Q13.5 10.5 16 12Z" fill="rgba(70,150,70,0.75)"/><path d="M16 12 L16 10" stroke="rgba(60,120,60,0.8)" stroke-width="1.2" stroke-linecap="round"/><path d="M12 10 Q12.8 8 12 6" stroke="rgba(255,255,255,0.45)" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M16 9 Q16.8 7 16 5" stroke="rgba(255,255,255,0.35)" stroke-width="0.9" stroke-linecap="round" fill="none"/><path d="M20 10 Q20.8 8 20 6" stroke="rgba(255,255,255,0.45)" stroke-width="1" stroke-linecap="round" fill="none"/></svg></div>
+          <span class="sf-logo-name">Kahve Dura&#287;&#305;</span>
+        </div>
+        <p class="sf-tagline">2018'den bu yana el yap&#305;m&#305; kahveler ve taze lezzetlerle hizmetinizdeyiz.</p>
+        <div class="sf-socials">
+          <a class="sf-soc" href="#" title="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a class="sf-soc" href="#" title="Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <a class="sf-soc" href="#" title="WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></a>
+        </div>
+      </div>
+      <div class="sf-col">
+        <div class="sf-col-title">Men&uuml;</div>
+        <div class="sf-links">
+          <a onclick="goCategory('coffee')">S&#305;cak Kahveler</a>
+          <a onclick="goCategory('cold')">So&#287;uk &#304;&#231;ecekler</a>
+          <a onclick="goCategory('dessert')">Tatl&#305;lar</a>
+          <a onclick="goCategory('sandwich')">Sandvi&ccedil; &amp; Tost</a>
+        </div>
+      </div>
+      <div class="sf-col">
+        <div class="sf-col-title">&#304;&#351;letme</div>
+        <div class="sf-links">
+          <a href="#">Hakk&#305;m&#305;zda</a>
+          <a href="#">Kariyer</a>
+          <a href="#">Hediye Kart&#305;</a>
+          <a href="#">Kurumsal Sipari&#351;</a>
+          <a href="#pricing">Plan Se&ccedil;</a>
+        </div>
+      </div>
+      <div class="sf-col">
+        <div class="sf-col-title">B&uuml;lten</div>
+        <p class="sf-newsletter-desc">Kampanya ve yeni &uuml;r&uuml;nlerden haberdar ol.</p>
+        <div class="sf-email-form">
+          <input type="email" placeholder="E-posta adresin" class="sf-email-input">
+          <button class="sf-email-btn" onclick="this.innerHTML='&#10003;';this.style.background='#22c55e';">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
+        <div class="sf-contact-list">
+          <div class="sf-contact-row"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Atat&uuml;rk Cad. No:42, Adana</div>
+          <div class="sf-contact-row"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.56 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.1a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>0322 XXX XX XX</div>
+          <div class="sf-contact-row"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>07:00 &ndash; 22:00</div>
+        </div>
+      </div>
+    </div>
+    <div class="sf-bottom">
+      <p class="sf-copy">&copy; 2025 Kahve Dura&#287;&#305;. T&uuml;m haklar&#305; sakl&#305;d&#305;r.</p>
+      <div class="sf-legal">
+        <a href="#">Gizlilik Politikas&#305;</a>
+        <a href="#">Kullan&#305;m Ko&#351;ullar&#305;</a>
+        <a href="#">&#199;erez Ayarlar&#305;</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- CATEGORY PAGE -->
+<div id="pg-category" style="display:none;">
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="logo" onclick="goHome()">
+        <div class="logo-badge"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 14 L7.5 27 Q7.8 28.5 9.5 29 L22.5 29 Q24.2 28.5 24.5 27 L26 14 Z" fill="rgba(255,255,255,0.88)" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/><rect x="5" y="12.5" width="22" height="2.5" rx="1.25" fill="rgba(255,255,255,0.95)"/><path d="M26 16 Q30 16 30 19.5 Q30 23 26 23" stroke="rgba(255,255,255,0.85)" stroke-width="2.2" fill="none" stroke-linecap="round"/><ellipse cx="16" cy="17.5" rx="6.5" ry="1.3" fill="rgba(139,74,16,0.5)"/><ellipse cx="16" cy="30" rx="8.5" ry="1.8" fill="rgba(255,255,255,0.65)"/><path d="M16 12 Q16 7 19 5 Q21 3.5 23 4 Q22 7 20 9 Q18.5 10.5 16 12Z" fill="rgba(80,160,80,0.9)"/><path d="M16 12 Q16 7 13 5 Q11 3.5 9 4 Q10 7 12 9 Q13.5 10.5 16 12Z" fill="rgba(70,150,70,0.75)"/><path d="M16 12 L16 10" stroke="rgba(60,120,60,0.8)" stroke-width="1.2" stroke-linecap="round"/><path d="M12 10 Q12.8 8 12 6" stroke="rgba(255,255,255,0.45)" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M16 9 Q16.8 7 16 5" stroke="rgba(255,255,255,0.35)" stroke-width="0.9" stroke-linecap="round" fill="none"/><path d="M20 10 Q20.8 8 20 6" stroke="rgba(255,255,255,0.45)" stroke-width="1" stroke-linecap="round" fill="none"/></svg></div>
+        <span class="logo-wordmark">Kahve Dura&#287;&#305;</span>
+      </div>
+      <div class="nav-links">
+        <a onclick="goHome()">&larr; Ana Sayfa</a>
+        <a onclick="goCategory('coffee')">Kahve</a>
+        <a onclick="goCategory('sandwich')">Sandvi&ccedil;</a>
+        <a onclick="goCategory('dessert')">Tatl&#305;lar</a>
+        <a onclick="goCategory('cold')">So&#287;uk</a>
+      </div>
+      <button class="nav-cta" onclick="goHome()">Ana Sayfa &rarr;</button>
+    </div>
+  </nav>
+  <div class="catpage-hero">
+    <img id="cp-hero-img" src="" alt="" loading="lazy">
+    <div class="catpage-hero-ov"></div>
+    <div class="catpage-hero-cnt">
+      <div class="back-btn" onclick="goHome()">&larr; Ana Sayfaya D&ouml;n</div>
+      <h1 id="cp-title"></h1>
+      <p id="cp-subtitle"></p>
+    </div>
+  </div>
+  <div class="catpage-body">
+    <div style="margin-bottom:32px;"><div class="eyebrow" id="cp-eyebrow"></div><h2 class="sec-title" id="cp-heading"></h2></div>
+    <div class="cp-grid" id="cp-grid"></div>
+  </div>
+</div>
+
+<script>
+const CATS={
+  coffee:{title:'S\u0131cak Kahveler',subtitle:'El yap\u0131m\u0131, her g\u00fcn taze demlenen',eyebrow:'Kahve Men\u00fcs\u00fc',heading:'Her yudumda bir hikaye.',hero:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1400&q=80',items:[{name:'Filtre Kahve',desc:'Etiyopya single-origin, orta kavrum. \u00c7i\u00e7eksi ve meyvemsi notalar.',price:65,img:'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&q=80'},{name:'Espresso',desc:'Double shot, g\u00fc\u00e7l\u00fc ve yo\u011fun. G\u00fcn\u00fcn her saatine uygun.',price:55,img:'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=600&q=80'},{name:'Cappuccino',desc:'\u00c7ift shot espresso, el k\u00f6p\u00fcrtmeli ince s\u00fct k\u00f6p\u00fc\u011f\u00fc.',price:85,img:'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600&q=80'},{name:'\u00d6zel Latte',desc:'G\u00fcnl\u00fck taze \u00e7ekilen kahve, ev yap\u0131m\u0131 vanilyalı \u015furup.',price:85,img:'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80'},{name:'Flat White',desc:'Ristretto tabanl\u0131, ipeksi microfoam. Barista \u00f6zel.',price:90,img:'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80'},{name:'T\u00fcrk Kahvesi',desc:'Geleneksel cezve yap\u0131m\u0131, istedi\u011finiz k\u0131vamda.',price:60,img:'https://images.unsplash.com/photo-1578374173705-969cbe6f2d6b?w=600&q=80'}]},
+  cold:{title:'So\u011fuk \u0130\u00e7ecekler',subtitle:'Serinletici, taze, enerjik',eyebrow:'So\u011fuk \u0130\u00e7ecek Men\u00fcs\u00fc',heading:'Taze, so\u011fuk, m\u00fckemmel.',hero:'https://images.unsplash.com/photo-1541167760496-1628856ab772?w=1400&q=80',items:[{name:'Cold Brew',desc:'12 saat so\u011fuk demleme. Yumu\u015fak, do\u011fal tatl\u0131, az asitli.',price:95,img:'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80'},{name:'Matcha Latte',desc:'Ceremonial grade Japon matcha, oat milk se\u00e7ene\u011fi mevcut.',price:95,img:'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=600&q=80'},{name:'Berry Smoothie',desc:'Taze muz, \u00e7ilek, yaban mersini ve chia tohumu.',price:105,img:'https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=600&q=80'},{name:'Acai Bowl',desc:'Organik acai, granola, muz dilimleri ve bal.',price:145,img:'https://images.unsplash.com/photo-1590301157890-4810ed352733?w=600&q=80'},{name:'Taze Limonata',desc:'Taze s\u0131k\u0131lm\u0131\u015f limon, nane ve do\u011fal \u015feker.',price:75,img:'https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=600&q=80'},{name:'Buzlu \u00c7ay',desc:'Demlenmi\u015f siyah \u00e7ay, limon ve zencefil aroması.',price:65,img:'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=600&q=80'}]},
+  dessert:{title:'Tatl\u0131lar',subtitle:'Ev yap\u0131m\u0131, her g\u00fcn taze pi\u015firilir',eyebrow:'Tatl\u0131 Men\u00fcs\u00fc',heading:'Tatl\u0131 bir mola.',hero:'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=1400&q=80',items:[{name:'NY Cheesecake',desc:'Klasik krem peynirli, her g\u00fcn taze pi\u015firilen.',price:120,img:'https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?w=600&q=80'},{name:'Tiramisu',desc:'\u0130talyan orijinal tarif, maskarpone ve espresso.',price:110,img:'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&q=80'},{name:'\u00c7ikolatal\u0131 Brownie',desc:'\u00c7ift \u00e7ikolatal\u0131, cevizli, s\u0131cak servis.',price:90,img:'https://images.unsplash.com/photo-1606312619070-d48b9c5c6c95?w=600&q=80'},{name:'Magnolia',desc:'Yumu\u015fak pandispanya, vanilyalı krema, \u00e7ilek soslu.',price:95,img:'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=80'},{name:'Waffle & Dondurma',desc:'Taze pi\u015fen waffle, 2 top dondurma, \u00e7ikolata sos.',price:135,img:'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=80'},{name:'Taze Krep',desc:'Nutella ve taze meyve se\u00e7enekleriyle.',price:100,img:'https://images.unsplash.com/photo-1519676867240-f03562e64548?w=600&q=80'}]},
+  sandwich:{title:'Sandvi\u00e7 & Tost',subtitle:'Taze f\u0131r\u0131n ekmek, g\u00fcnl\u00fck malzeme',eyebrow:'Sandvi\u00e7 Men\u00fcs\u00fc',heading:'Doyurucu ve lezzetli.',hero:'https://images.unsplash.com/photo-1528736235302-52922df5c122?w=1400&q=80',items:[{name:'Club Sandvi\u00e7',desc:'Tavuk, domates, marul, cheddar \u2014 tam bu\u011fday ekmekte.',price:150,img:'https://images.unsplash.com/photo-1528736235302-52922df5c122?w=600&q=80'},{name:'Avokado Toast',desc:'Taze avokado, k\u0131rm\u0131z\u0131 biber p\u00fcresi, ha\u015flanm\u0131\u015f yumurta.',price:140,img:'https://images.unsplash.com/photo-1588137378633-dea1336ce1e2?w=600&q=80'},{name:'Ton Bal\u0131kl\u0131 Tost',desc:'Ton bal\u0131\u011f\u0131, korni\u015fon, m\u0131s\u0131r \u2014 \u0131zgara.',price:120,img:'https://images.unsplash.com/photo-1481070414801-51fd732d7184?w=600&q=80'},{name:'Kar\u0131\u015f\u0131k Tost',desc:'Ka\u015far peyniri, sucuk ve domates. Klasik.',price:95,img:'https://images.unsplash.com/photo-1475090169767-40ed8d18f67d?w=600&q=80'},{name:'Chicken Wrap',desc:'Tavuk, tzatziki, marul, f\u0131r\u0131nda taze lava\u015f.',price:135,img:'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&q=80'},{name:'Tereyağlı Kruvasan',desc:'Sade veya peynirli, g\u00fcnl\u00fck taze f\u0131r\u0131n.',price:85,img:'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=80'}]}
+};
+function showPage(id){
+  var home = document.getElementById('pg-home');
+  var cat = document.getElementById('pg-category');
+  if(id === 'pg-home'){
+    if(home) home.style.display = 'block';
+    if(cat) cat.style.display = 'none';
+  } else {
+    if(home) home.style.display = 'none';
+    if(cat) cat.style.display = 'block';
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function goHome(){showPage('pg-home');}
+function goCategory(cat){const d=CATS[cat];if(!d)return;document.getElementById('cp-hero-img').src=d.hero;document.getElementById('cp-hero-img').alt=d.title;document.getElementById('cp-title').textContent=d.title;document.getElementById('cp-subtitle').textContent=d.subtitle;document.getElementById('cp-eyebrow').textContent=d.eyebrow;document.getElementById('cp-heading').textContent=d.heading;document.getElementById('cp-grid').innerHTML=d.items.map(i=>'<div class="cpcard"><div class="cpcard-img"><img src="'+i.img+'" alt="'+i.name+'" loading="lazy"></div><div class="cpcard-body"><div class="cpcard-name">'+i.name+'</div><p class="cpcard-desc">'+i.desc+'</p><div class="cpcard-foot"><span class="cpcard-price">&#x20BA;'+i.price+'</span><button class="cpcard-btn">Sepete Ekle</button></div></div></div>').join('');showPage('pg-category');}
+function smoothTo(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'});}
+window.addEventListener('scroll',()=>{document.getElementById('navbar')?.classList.toggle('scrolled',window.scrollY>20);},{passive:true});
+function filterMenu(btn){
+  document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  const f = btn.dataset.filter;
+  document.querySelectorAll('.mcard').forEach(r=>{
+    r.style.display = (f==='all'||r.dataset.cat===f) ? 'block' : 'none';
+  });
+}
+const rW=['lezzetli','taze','\u00f6zel','s\u0131cak','enfes'];let ri=0;const rEl=document.getElementById('rot');
+setInterval(()=>{rEl.classList.add('out');setTimeout(()=>{ri=(ri+1)%rW.length;rEl.textContent=rW[ri];rEl.classList.remove('out');},300);},2500);
+
+// Pricing toggle
+function setFreq(btn, freq) {
+  document.querySelectorAll('.price-tog').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (freq === 'yearly') {
+    document.getElementById('pro-price').textContent = '\u20BA32';
+    document.getElementById('biz-price').textContent = '\u20BA97';
+  } else {
+    document.getElementById('pro-price').textContent = '\u20BA49';
+    document.getElementById('biz-price').textContent = '\u20BA149';
+  }
+}
+
+// ── Scroll-expand hero ──
+(function() {
+  var progress = 0;
+  var expanded = false;
+  var frame = document.getElementById('hero-media-frame');
+  var bgImg = document.getElementById('hero-bg-img');
+  var bgOverlay = document.getElementById('hero-bg-overlay');
+  var mediaOverlay = document.querySelector('.hero-media-overlay');
+  var heroInner = document.querySelector('.hero-inner');
+  var scrollInd = document.getElementById('scroll-indicator');
+  var isMobile = window.innerWidth < 768;
+
+  function setProgress(p) {
+    p = Math.max(0, Math.min(1, p));
+    progress = p;
+    if (!frame) return;
+
+    // Frame expands
+    var maxW = isMobile ? 100 : 95; // vw
+    var maxH = isMobile ? 70 : 90;  // vh
+    var startW = isMobile ? 280 : 320;
+    var startH = isMobile ? 340 : 380;
+    var w = startW + p * (window.innerWidth * maxW / 100 - startW);
+    var h = startH + p * (window.innerHeight * maxH / 100 - startH);
+    frame.style.width = w + 'px';
+    frame.style.height = h + 'px';
+    frame.style.borderRadius = (24 - p * 24) + 'px';
+    frame.style.boxShadow = p > 0.5 ? 'none' : '0 32px 80px rgba(24,16,10,' + (0.22 * (1-p)) + '),0 4px 20px rgba(24,16,10,' + (0.1 * (1-p)) + ')';
+
+    // Background fades out
+    if (bgOverlay) bgOverlay.style.opacity = 1 - p * 0.6;
+    if (bgImg) bgImg.style.transform = 'scale(' + (1 + p * 0.06) + ')';
+
+    // Media overlay fades
+    if (mediaOverlay) mediaOverlay.style.opacity = 1 - p * 0.8;
+
+    // Text fades as we expand
+    if (heroInner) heroInner.style.opacity = p < 0.3 ? 1 : Math.max(0, 1 - (p - 0.3) / 0.4);
+
+    // Scroll indicator hides
+    if (scrollInd) scrollInd.classList.toggle('hidden', p > 0.1);
+    // Show frame text overlay when expanded
+    var frameText = document.querySelector('.hero-frame-text');
+    if (frameText) frameText.classList.toggle('visible', p > 0.6);
+
+    if (p >= 1 && !expanded) {
+      expanded = true;
+    } else if (p < 1) {
+      expanded = false;
+    }
+  }
+
+  window.addEventListener('wheel', function(e) {
+    if (expanded && e.deltaY < 0 && window.scrollY <= 5) {
+      e.preventDefault();
+      setProgress(progress - 0.015);
+    } else if (!expanded) {
+      e.preventDefault();
+      setProgress(progress + e.deltaY * 0.001);
+    }
+  }, { passive: false });
+
+  // Touch
+  var touchStartY = 0;
+  window.addEventListener('touchstart', function(e) {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+  window.addEventListener('touchmove', function(e) {
+    if (expanded && window.scrollY > 5) return;
+    var delta = touchStartY - e.touches[0].clientY;
+    if (!expanded || delta < -20) {
+      e.preventDefault();
+      setProgress(progress + delta * 0.006);
+      touchStartY = e.touches[0].clientY;
+    }
+  }, { passive: false });
+
+  window.addEventListener('resize', function() {
+    isMobile = window.innerWidth < 768;
+  });
+})();
+
+</script>
+</body>
+</html>
